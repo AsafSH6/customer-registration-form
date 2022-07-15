@@ -1,8 +1,10 @@
 import styled from '@emotion/styled'
 
 import Paper from '@mui/material/Paper';
-import React from "react";
+import React, {useMemo} from "react";
 import {Divider, Typography} from "@mui/material";
+import {useFirstNameField, useLastNameField} from "./hooks";
+import NameInputField from "./NameInputField";
 
 
 
@@ -13,12 +15,28 @@ const Title = styled(Typography)`
   margin: 16px;
 `;
 
+const Fields = styled.div`
+  > * {
+      margin-top: 24px;
+      margin-left: 32px;
+    }  
+`;
+
+const FieldWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export interface RegistrationFormProps {
   className?: string
 }
 
 
 const RegistrationForm = ({ className } : RegistrationFormProps ) => {
+  const [firstName, onFirstNameChange, validateFirstName, firstNameError] = useFirstNameField('');
+  const [lastName, onLastNameChange, validateLastName, lastNameError] = useLastNameField('');
 
   return (
     <Root className={className}>
@@ -26,10 +44,28 @@ const RegistrationForm = ({ className } : RegistrationFormProps ) => {
         Customer Registration Form
       </Title>
       <Divider />
+      <Fields>
+        <FieldWrapper>
+          <Typography variant='h6'>Name</Typography>
+          <NameInputField
+            firstNameTextFieldProps={{
+              value: firstName,
+              onChange: onFirstNameChange,
+              error: useMemo(() => firstNameError !== '', [firstNameError]),
+              helperText: firstNameError
+            }}
+            lastNameTextFieldProps={{
+              value: lastName,
+              onChange: onLastNameChange,
+              error: useMemo(() => lastNameError !== '', [lastNameError]),
+              helperText: lastNameError
+            }}
+          />
+        </FieldWrapper>
+      </Fields>
     </Root>
   )
 };
-
 
 
 export default RegistrationForm;
