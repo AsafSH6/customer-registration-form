@@ -1,4 +1,5 @@
 import React, {useCallback, useState} from "react";
+import {SelectChangeEvent} from "@mui/material";
 
 
 const useFirstNameField =
@@ -61,9 +62,58 @@ const useBirthdayField =
     return [birthday, onBirthdayChange, validateBirthday];
 };
 
+const useCountrySelectField =
+  (initialValue: string): [string, (event: SelectChangeEvent<unknown>, child: React.ReactNode) => void, () => boolean, string] => {
+    const [country, setCountry] = useState<string>(initialValue);
+    const [countryError, setCountryError] = useState<string>('');
+
+    const onCountrySelect = useCallback((event: SelectChangeEvent<unknown>, child: React.ReactNode) => {
+      setCountryError('');
+      setCountry(event.target.value as string);
+    }, []);
+
+  const validateCountry = useCallback(() => {
+      if (country.trim() === '') {
+        setCountryError("Country can't be empty");
+        return false;
+      }
+
+      return true;
+    }, [country]);
+
+    return [country, onCountrySelect, validateCountry, countryError];
+}
+
+const useLanguagesSelectField =
+  (initialValue: string[]): [string[], (event: SelectChangeEvent<unknown>, child: React.ReactNode) => void, () => boolean, string] => {
+  const [languages, setLanguages] = useState<string[]>(initialValue);
+    const [languagesError, setLanguagesError] = useState<string>('');
+
+  const onLanguagesSelect = useCallback((event: SelectChangeEvent<unknown>, child: React.ReactNode) => {
+    const {
+      target: { value },
+    } = event;
+    setLanguagesError('');
+    setLanguages(value as string[]);
+  }, []);
+
+  const validateLanguages = useCallback(() => {
+      if (languages.length === 0) {
+        setLanguagesError("Languages can't be empty");
+        return false;
+      }
+
+      return true;
+    }, [languages]);
+
+    return [languages, onLanguagesSelect, validateLanguages, languagesError];
+};
+
 
 export {
   useFirstNameField,
   useLastNameField,
-  useBirthdayField
+  useBirthdayField,
+  useCountrySelectField,
+  useLanguagesSelectField,
 }

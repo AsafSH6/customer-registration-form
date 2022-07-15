@@ -42,4 +42,4 @@ const BirthdayInputField = ({ className, value, onChange }: BirthdayInputFieldPr
 }
 
 
-export default BirthdayInputField
+export default BirthdayInputField;

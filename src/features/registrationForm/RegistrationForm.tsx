@@ -3,9 +3,17 @@ import styled from '@emotion/styled'
 import Paper from '@mui/material/Paper';
 import React, {useMemo} from "react";
 import {Divider, Typography} from "@mui/material";
-import {useBirthdayField, useFirstNameField, useLastNameField} from "./hooks";
+import {
+  useBirthdayField,
+  useCountrySelectField,
+  useFirstNameField,
+  useLanguagesSelectField,
+  useLastNameField
+} from "./hooks";
 import NameInputField from "./NameInputField";
 import BirthdayInputField from "./BirthdayInputField";
+import CountrySelectField from "./CountrySelectField";
+import LanguageSelectField from "./LanguageSelectField";
 
 
 
@@ -39,6 +47,8 @@ const RegistrationForm = ({ className } : RegistrationFormProps ) => {
   const [firstName, onFirstNameChange, validateFirstName, firstNameError] = useFirstNameField('');
   const [lastName, onLastNameChange, validateLastName, lastNameError] = useLastNameField('');
   const [birthday, onBirthdayChange, validateBirthday] = useBirthdayField(new Date());
+  const [country, onCountrySelect, validateCountry, countryError] = useCountrySelectField('');
+  const [languages, onLanguagesSelect, validateLanguages, languagesError] = useLanguagesSelectField([]);
 
   return (
     <Root className={className}>
@@ -69,6 +79,28 @@ const RegistrationForm = ({ className } : RegistrationFormProps ) => {
           <BirthdayInputField
             value={birthday}
             onChange={onBirthdayChange}
+          />
+        </FieldWrapper>
+        <FieldWrapper>
+          <Typography variant='h6'>Country</Typography>
+          <CountrySelectField
+            error={useMemo(() => countryError !== '', [countryError])}
+            helperText={countryError}
+            selectProps={{
+              value: country,
+              onChange: onCountrySelect,
+            }}
+          />
+        </FieldWrapper>
+        <FieldWrapper>
+          <Typography variant='h6'>Languages</Typography>
+          <LanguageSelectField
+            error={useMemo(() => languagesError !== '', [languagesError])}
+            helperText={languagesError}
+            selectProps={{
+              value: languages,
+              onChange: onLanguagesSelect
+          }}
           />
         </FieldWrapper>
       </Fields>
