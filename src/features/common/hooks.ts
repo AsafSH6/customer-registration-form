@@ -1,5 +1,5 @@
-import {countries, languages} from "./consts";
-import {useState} from "react";
+import { useState } from "react";
+import { countries, languages } from "./consts";
 
 // Note: would be better to fetch countries from some API since it may change from time to time..
 const useCountries = () => {
@@ -50,9 +50,4 @@ function useLocalStorage<T>(key: string, initialValue: T) {
   return [storedValue, setValue] as const;
 }
 
-
-export {
-  useCountries,
-  useLanguages,
-  useLocalStorage,
-}
+export { useCountries, useLanguages, useLocalStorage };

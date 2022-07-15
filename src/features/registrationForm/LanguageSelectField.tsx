@@ -1,4 +1,3 @@
-import {useLanguages} from "../common/hooks";
 import {
   Box,
   Chip,
@@ -7,10 +6,10 @@ import {
   MenuItem,
   OutlinedInput,
   Select,
+  SelectProps
 } from "@mui/material";
 import styled from "@emotion/styled";
-import {SelectProps} from "@mui/material/Select";
-
+import { useLanguages } from "../common/hooks";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -36,45 +35,47 @@ const LanguagesSelectElement = styled(Select)`
 `;
 
 export interface LanguageSelectProps {
-  className?: string
-  selectProps: SelectProps
-  error: boolean
-  helperText: string
+  className?: string;
+  selectProps: SelectProps;
+  error: boolean;
+  helperText: string;
 }
 
-const LanguageSelectField = ({ className, selectProps, error, helperText }: LanguageSelectProps) => {
+const LanguageSelectField = ({
+  className,
+  selectProps,
+  error,
+  helperText,
+}: LanguageSelectProps) => {
   const languages = useLanguages();
 
   return (
     <Root className={className}>
       <FormControl error={error}>
         <LanguagesSelectElement
-              id='language-select'
-              multiple
-              input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-              renderValue={(selected) => (
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                  {(selected as string[]).map((language) => (
-                    <Chip key={language} label={language} />
-                  ))}
-                </Box>
-              )}
-              MenuProps={MenuProps}
-              {...selectProps}
-            >
-              {languages.map((language) => (
-                <MenuItem
-                  key={language}
-                  value={language}
-                >
-                  {language}
-                </MenuItem>
+          id="language-select"
+          multiple
+          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+          renderValue={(selected) => (
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+              {(selected as string[]).map((language) => (
+                <Chip key={language} label={language} />
               ))}
-          </LanguagesSelectElement>
-          {error && <FormHelperText>{helperText}</FormHelperText>}
-        </FormControl>
+            </Box>
+          )}
+          MenuProps={MenuProps}
+          {...selectProps}
+        >
+          {languages.map((language) => (
+            <MenuItem key={language} value={language}>
+              {language}
+            </MenuItem>
+          ))}
+        </LanguagesSelectElement>
+        {error && <FormHelperText>{helperText}</FormHelperText>}
+      </FormControl>
     </Root>
   );
-}
+};
 
 export default LanguageSelectField;

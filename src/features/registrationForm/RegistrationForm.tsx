@@ -1,14 +1,12 @@
-import styled from '@emotion/styled'
-
-import Paper from '@mui/material/Paper';
-import React, {useMemo, useState} from "react";
-import {Button, Divider, Snackbar, Typography} from "@mui/material";
+import React, { useMemo, useState } from "react";
+import styled from "@emotion/styled";
+import { Paper, Button, Divider, Snackbar, Typography } from "@mui/material";
 import {
   useBirthdayField,
   useCountrySelectField,
   useFirstNameField,
   useLanguagesSelectField,
-  useLastNameField
+  useLastNameField,
 } from "./hooks";
 import NameInputField from "./NameInputField";
 import BirthdayInputField from "./BirthdayInputField";
@@ -16,20 +14,15 @@ import CountrySelectField from "./CountrySelectField";
 import LanguageSelectField from "./LanguageSelectField";
 import PreviousJobs from "./PreviousJobs";
 
-
-
-const Root = styled(Paper)`
-`;
-
 const Title = styled(Typography)`
   margin: 16px;
 `;
 
 const Fields = styled.div`
   > * {
-      margin-top: 24px;
-      margin-left: 32px;
-    }  
+    margin-top: 24px;
+    margin-left: 32px;
+  }
 `;
 
 const FieldWrapper = styled.div`
@@ -51,16 +44,21 @@ const PreviousJobsWrapper = styled.div`
 `;
 
 export interface RegistrationFormProps {
-  className?: string
+  className?: string;
 }
 
-
-const RegistrationForm = ({ className } : RegistrationFormProps ) => {
-  const [firstName, onFirstNameChange, validateFirstName, firstNameError] = useFirstNameField('');
-  const [lastName, onLastNameChange, validateLastName, lastNameError] = useLastNameField('');
-  const [birthday, onBirthdayChange, validateBirthday] = useBirthdayField(new Date());
-  const [country, onCountrySelect, validateCountry, countryError] = useCountrySelectField('');
-  const [languages, onLanguagesSelect, validateLanguages, languagesError] = useLanguagesSelectField([]);
+const RegistrationForm = ({ className }: RegistrationFormProps) => {
+  const [firstName, onFirstNameChange, validateFirstName, firstNameError] =
+    useFirstNameField("");
+  const [lastName, onLastNameChange, validateLastName, lastNameError] =
+    useLastNameField("");
+  const [birthday, onBirthdayChange, validateBirthday] = useBirthdayField(
+    new Date()
+  );
+  const [country, onCountrySelect, validateCountry, countryError] =
+    useCountrySelectField("");
+  const [languages, onLanguagesSelect, validateLanguages, languagesError] =
+    useLanguagesSelectField([]);
   const [openSnackbar, setSnackbarOpen] = useState<boolean>(false);
 
   const validateFields = () => {
@@ -69,18 +67,18 @@ const RegistrationForm = ({ className } : RegistrationFormProps ) => {
       validateLastName,
       validateBirthday,
       validateCountry,
-      validateLanguages
+      validateLanguages,
     ];
 
     let hasError = false;
-    for(let validator of validators) {
+    for (let validator of validators) {
       if (!validator()) {
-        hasError = true
+        hasError = true;
       }
     }
 
     return hasError;
-  }
+  };
 
   const onSubmit = () => {
     if (!validateFields()) {
@@ -89,40 +87,35 @@ const RegistrationForm = ({ className } : RegistrationFormProps ) => {
   };
 
   return (
-    <Root className={className}>
-      <Title variant='h4'>
-        Customer Registration Form
-      </Title>
+    <Paper className={className}>
+      <Title variant="h4">Customer Registration Form</Title>
       <Divider />
       <Fields>
         <FieldWrapper>
-          <Typography variant='h6'>Name</Typography>
+          <Typography variant="h6">Name</Typography>
           <NameInputField
             firstNameTextFieldProps={{
               value: firstName,
               onChange: onFirstNameChange,
-              error: useMemo(() => firstNameError !== '', [firstNameError]),
-              helperText: firstNameError
+              error: useMemo(() => firstNameError !== "", [firstNameError]),
+              helperText: firstNameError,
             }}
             lastNameTextFieldProps={{
               value: lastName,
               onChange: onLastNameChange,
-              error: useMemo(() => lastNameError !== '', [lastNameError]),
-              helperText: lastNameError
+              error: useMemo(() => lastNameError !== "", [lastNameError]),
+              helperText: lastNameError,
             }}
           />
         </FieldWrapper>
         <FieldWrapper>
-          <Typography variant='h6'>Birthday</Typography>
-          <BirthdayInputField
-            value={birthday}
-            onChange={onBirthdayChange}
-          />
+          <Typography variant="h6">Birthday</Typography>
+          <BirthdayInputField value={birthday} onChange={onBirthdayChange} />
         </FieldWrapper>
         <FieldWrapper>
-          <Typography variant='h6'>Country</Typography>
+          <Typography variant="h6">Country</Typography>
           <CountrySelectField
-            error={useMemo(() => countryError !== '', [countryError])}
+            error={useMemo(() => countryError !== "", [countryError])}
             helperText={countryError}
             selectProps={{
               value: country,
@@ -131,14 +124,14 @@ const RegistrationForm = ({ className } : RegistrationFormProps ) => {
           />
         </FieldWrapper>
         <FieldWrapper>
-          <Typography variant='h6'>Languages</Typography>
+          <Typography variant="h6">Languages</Typography>
           <LanguageSelectField
-            error={useMemo(() => languagesError !== '', [languagesError])}
+            error={useMemo(() => languagesError !== "", [languagesError])}
             helperText={languagesError}
             selectProps={{
               value: languages,
-              onChange: onLanguagesSelect
-          }}
+              onChange: onLanguagesSelect,
+            }}
           />
         </FieldWrapper>
       </Fields>
@@ -146,10 +139,7 @@ const RegistrationForm = ({ className } : RegistrationFormProps ) => {
         <PreviousJobs />
       </PreviousJobsWrapper>
       <SubmitFooter>
-        <Button
-          onClick={onSubmit}
-          variant="outlined"
-        >
+        <Button onClick={onSubmit} variant="outlined">
           Submit
         </Button>
         <Snackbar
@@ -159,9 +149,8 @@ const RegistrationForm = ({ className } : RegistrationFormProps ) => {
           message="Submitted"
         />
       </SubmitFooter>
-    </Root>
-  )
+    </Paper>
+  );
 };
-
 
 export default RegistrationForm;

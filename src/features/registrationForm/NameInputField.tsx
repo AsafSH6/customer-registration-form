@@ -1,6 +1,5 @@
-import {TextField, TextFieldProps} from "@mui/material";
 import styled from "@emotion/styled";
-
+import { TextField, TextFieldProps } from "@mui/material";
 
 const Root = styled.div`
   display: flex;
@@ -12,30 +11,23 @@ const Root = styled.div`
   }
 `;
 
-
 export interface NameInputFieldProps {
-  className?: string
-  firstNameTextFieldProps?: TextFieldProps
-  lastNameTextFieldProps?: TextFieldProps
+  className?: string;
+  firstNameTextFieldProps?: TextFieldProps;
+  lastNameTextFieldProps?: TextFieldProps;
 }
 
-
-const NameInputField = ({ className, firstNameTextFieldProps, lastNameTextFieldProps }: NameInputFieldProps) => {
+const NameInputField = ({
+  className,
+  firstNameTextFieldProps,
+  lastNameTextFieldProps,
+}: NameInputFieldProps) => {
   return (
     <Root className={className}>
-      <TextField
-        required
-        label='First Name'
-        {...firstNameTextFieldProps}
-      />
-      <TextField
-        required
-        label='Last Name'
-        {...lastNameTextFieldProps}
-      />
+      <TextField required label="First Name" {...firstNameTextFieldProps} />
+      <TextField required label="Last Name" {...lastNameTextFieldProps} />
     </Root>
-  )
-}
-
+  );
+};
 
 export default NameInputField;

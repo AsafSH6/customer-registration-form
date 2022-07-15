@@ -1,8 +1,7 @@
-import React from 'react';
-import RegistrationForm from "./features/registrationForm/RegistrationForm";
-import { Typography } from "@mui/material";
+import React from "react";
 import styled from "@emotion/styled";
-
+import { Typography } from "@mui/material";
+import RegistrationForm from "./features/registrationForm/RegistrationForm";
 
 const Root = styled.div`
   flex: 1;
@@ -27,16 +26,13 @@ const RegistrationFormCentered = styled(RegistrationForm)`
   height: 100%;
 `;
 
-
 function App() {
   return (
-  <Root>
-    <Title variant='h3' >
-      Welcome
-    </Title>
-    <RegistrationFormWrapper>
-      <RegistrationFormCentered />
-    </RegistrationFormWrapper>
+    <Root>
+      <Title variant="h3">Welcome</Title>
+      <RegistrationFormWrapper>
+        <RegistrationFormCentered />
+      </RegistrationFormWrapper>
     </Root>
   );
 }

@@ -1,8 +1,6 @@
-import {FormControl, FormHelperText, MenuItem, Select} from "@mui/material";
-import {SelectProps} from "@mui/material/Select";
-import {useCountries} from "../common/hooks";
 import styled from "@emotion/styled";
-
+import { FormControl, FormHelperText, MenuItem, Select, SelectProps } from "@mui/material";
+import { useCountries } from "../common/hooks";
 
 const Root = styled.div`
   display: flex;
@@ -17,37 +15,34 @@ const CountrySelectElement = styled(Select)`
 `;
 
 export interface CountrySelectProps {
-  className?: string
-  selectProps?: SelectProps
-  error: boolean
-  helperText: string
+  className?: string;
+  selectProps?: SelectProps;
+  error: boolean;
+  helperText: string;
 }
 
-
-const CountrySelectField = ({ className, selectProps, error, helperText }: CountrySelectProps) => {
+const CountrySelectField = ({
+  className,
+  selectProps,
+  error,
+  helperText,
+}: CountrySelectProps) => {
   const countries = useCountries();
 
   return (
     <Root className={className}>
       <FormControl error={error}>
-        <CountrySelectElement
-          id='country-select'
-          {...selectProps}
-        >
-            {countries.map((country, idx) => (
-              <MenuItem
-                key={idx}
-                value={country}
-              >
-                {country}
-              </MenuItem>
-            ))}
+        <CountrySelectElement id="country-select" {...selectProps}>
+          {countries.map((country, idx) => (
+            <MenuItem key={idx} value={country}>
+              {country}
+            </MenuItem>
+          ))}
         </CountrySelectElement>
         {error && <FormHelperText>{helperText}</FormHelperText>}
       </FormControl>
     </Root>
-  )
+  );
 };
-
 
 export default CountrySelectField;
