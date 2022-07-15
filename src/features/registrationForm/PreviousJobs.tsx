@@ -9,6 +9,7 @@ import AddIcon from '@mui/icons-material/Add';
 
 import {useCallback, useMemo, useState} from "react";
 import AddPreviousJobDialog from "./AddPreviousJobDialog";
+import {useLocalStorage} from "../common/hooks";
 
 
 export interface PreviousJobType {
@@ -83,7 +84,7 @@ const TopBar = styled.div`
 `;
 
 const PreviousJobs = () => {
-  const [previousJobs, setPreviousJobs] = useState<PreviousJobType[]>([]);
+  const [previousJobs, setPreviousJobs] = useLocalStorage<PreviousJobType[]>('previous-jobs', []);
   const [previousJobDialogOpened, setPreviousJobDialogOpened] = useState<boolean>(false);
 
   const handleDialogClose = useCallback(() => {
@@ -100,7 +101,7 @@ const PreviousJobs = () => {
       data
     ]);
     handleDialogClose();
-  }, [handleDialogClose]);
+  }, [handleDialogClose, setPreviousJobs]);
 
   return (
     <Root variant="outlined">
