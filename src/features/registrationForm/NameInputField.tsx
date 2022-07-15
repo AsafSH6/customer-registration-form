@@ -13,14 +13,14 @@ const Root = styled.div`
 `;
 
 
-export interface NameInputProps {
+export interface NameInputFieldProps {
   className?: string
   firstNameTextFieldProps?: TextFieldProps
   lastNameTextFieldProps?: TextFieldProps
 }
 
 
-const NameInputField = ({ className, firstNameTextFieldProps, lastNameTextFieldProps }: NameInputProps) => {
+const NameInputField = ({ className, firstNameTextFieldProps, lastNameTextFieldProps }: NameInputFieldProps) => {
   return (
     <Root className={className}>
       <TextField

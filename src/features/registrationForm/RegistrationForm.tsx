@@ -3,8 +3,9 @@ import styled from '@emotion/styled'
 import Paper from '@mui/material/Paper';
 import React, {useMemo} from "react";
 import {Divider, Typography} from "@mui/material";
-import {useFirstNameField, useLastNameField} from "./hooks";
+import {useBirthdayField, useFirstNameField, useLastNameField} from "./hooks";
 import NameInputField from "./NameInputField";
+import BirthdayInputField from "./BirthdayInputField";
 
 
 
@@ -37,6 +38,7 @@ export interface RegistrationFormProps {
 const RegistrationForm = ({ className } : RegistrationFormProps ) => {
   const [firstName, onFirstNameChange, validateFirstName, firstNameError] = useFirstNameField('');
   const [lastName, onLastNameChange, validateLastName, lastNameError] = useLastNameField('');
+  const [birthday, onBirthdayChange, validateBirthday] = useBirthdayField(new Date());
 
   return (
     <Root className={className}>
@@ -60,6 +62,13 @@ const RegistrationForm = ({ className } : RegistrationFormProps ) => {
               error: useMemo(() => lastNameError !== '', [lastNameError]),
               helperText: lastNameError
             }}
+          />
+        </FieldWrapper>
+        <FieldWrapper>
+          <Typography variant='h6'>Birthday</Typography>
+          <BirthdayInputField
+            value={birthday}
+            onChange={onBirthdayChange}
           />
         </FieldWrapper>
       </Fields>

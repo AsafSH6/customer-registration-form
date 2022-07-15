@@ -46,8 +46,24 @@ const useLastNameField =
   return [lastName, onLastNameChange, validateLastName, lastNameError];
 };
 
+const useBirthdayField =
+  (initialValue: Date): [Date | null, (value: Date | null) => void, () => boolean] => {
+    const [birthday, setBirthday] = useState<Date | null>(initialValue);
+
+    const onBirthdayChange = useCallback((value: Date | null) => {
+      setBirthday(value);
+    }, []);
+
+    const validateBirthday = useCallback(() => {
+      return birthday !== null;
+    }, [birthday]);
+
+    return [birthday, onBirthdayChange, validateBirthday];
+};
+
 
 export {
   useFirstNameField,
-  useLastNameField
+  useLastNameField,
+  useBirthdayField
 }
