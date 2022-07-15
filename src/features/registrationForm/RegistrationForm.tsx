@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
 
 import Paper from '@mui/material/Paper';
-import React, {useMemo} from "react";
-import {Divider, Typography} from "@mui/material";
+import React, {useMemo, useState} from "react";
+import {Button, Divider, Snackbar, Typography} from "@mui/material";
 import {
   useBirthdayField,
   useCountrySelectField,
@@ -39,6 +39,12 @@ const FieldWrapper = styled.div`
   justify-content: space-between;
 `;
 
+const SubmitFooter = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 8px;
+`;
+
 const PreviousJobsWrapper = styled.div`
   flex: 1;
   margin: 16px;
@@ -55,6 +61,32 @@ const RegistrationForm = ({ className } : RegistrationFormProps ) => {
   const [birthday, onBirthdayChange, validateBirthday] = useBirthdayField(new Date());
   const [country, onCountrySelect, validateCountry, countryError] = useCountrySelectField('');
   const [languages, onLanguagesSelect, validateLanguages, languagesError] = useLanguagesSelectField([]);
+  const [openSnackbar, setSnackbarOpen] = useState<boolean>(false);
+
+  const validateFields = () => {
+    const validators = [
+      validateFirstName,
+      validateLastName,
+      validateBirthday,
+      validateCountry,
+      validateLanguages
+    ];
+
+    let hasError = false;
+    for(let validator of validators) {
+      if (!validator()) {
+        hasError = true
+      }
+    }
+
+    return hasError;
+  }
+
+  const onSubmit = () => {
+    if (!validateFields()) {
+      setSnackbarOpen(true);
+    }
+  };
 
   return (
     <Root className={className}>
@@ -113,6 +145,20 @@ const RegistrationForm = ({ className } : RegistrationFormProps ) => {
       <PreviousJobsWrapper>
         <PreviousJobs />
       </PreviousJobsWrapper>
+      <SubmitFooter>
+        <Button
+          onClick={onSubmit}
+          variant="outlined"
+        >
+          Submit
+        </Button>
+        <Snackbar
+          open={openSnackbar}
+          autoHideDuration={6000}
+          onClose={() => setSnackbarOpen(false)}
+          message="Submitted"
+        />
+      </SubmitFooter>
     </Root>
   )
 };

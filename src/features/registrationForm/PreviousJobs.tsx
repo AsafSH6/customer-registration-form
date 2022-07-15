@@ -100,7 +100,7 @@ const PreviousJobs = () => {
       data
     ]);
     handleDialogClose();
-  }, []);
+  }, [handleDialogClose]);
 
   return (
     <Root variant="outlined">

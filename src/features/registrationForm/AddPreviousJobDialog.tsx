@@ -25,7 +25,7 @@ const AddPreviousJobDialog = ({ open, handleClose, handleAddPreviousJobDetails }
     setPeriod('');
   };
   const isAddButtonDisabled = useMemo(() => {
-    return name.trim()== '' || period.trim() == '';
+    return name.trim() === '' || period.trim() === '';
   }, [name, period])
 
 
