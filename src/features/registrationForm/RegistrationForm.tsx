@@ -14,6 +14,7 @@ import NameInputField from "./NameInputField";
 import BirthdayInputField from "./BirthdayInputField";
 import CountrySelectField from "./CountrySelectField";
 import LanguageSelectField from "./LanguageSelectField";
+import PreviousJobs from "./PreviousJobs";
 
 
 
@@ -36,6 +37,11 @@ const FieldWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+`;
+
+const PreviousJobsWrapper = styled.div`
+  flex: 1;
+  margin: 16px;
 `;
 
 export interface RegistrationFormProps {
@@ -104,6 +110,9 @@ const RegistrationForm = ({ className } : RegistrationFormProps ) => {
           />
         </FieldWrapper>
       </Fields>
+      <PreviousJobsWrapper>
+        <PreviousJobs />
+      </PreviousJobsWrapper>
     </Root>
   )
 };

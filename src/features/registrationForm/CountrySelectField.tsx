@@ -16,7 +16,6 @@ const CountrySelectElement = styled(Select)`
   min-width: 240px;
 `;
 
-
 export interface CountrySelectProps {
   className?: string
   selectProps?: SelectProps
@@ -48,7 +47,7 @@ const CountrySelectField = ({ className, selectProps, error, helperText }: Count
       </FormControl>
     </Root>
   )
-}
+};
 
 
 export default CountrySelectField;
